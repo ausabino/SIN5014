@@ -21,25 +21,30 @@ from copy import deepcopy as copiar
 CANAIS=3
 VALOR_CANAL=256
 
-#imagem = biblimagem.imread("imgs/estacao.jpg", biblimagem.IMREAD_COLOR)
+imagem = biblimagem.imread("imgs/estacao.jpg", biblimagem.IMREAD_COLOR)
 #imagem = biblimagem.imread("imgs/cidade.jpg", biblimagem.IMREAD_COLOR)
+#imagem = biblimagem.imread("imgs/ruido.jpg", biblimagem.IMREAD_COLOR)
 
 def histograma(matriz_pixels):
-    # TODO: Colocar legenda nos eixos e titulo
     altura, largura = matriz_pixels.shape[0:2]
-    histograma_azul = np.zeros((1,VALOR_CANAL))
-    histograma_verde = np.zeros((1,VALOR_CANAL))
-    histograma_vermelho = np.zeros((1,VALOR_CANAL))
-    for linha in range(0, altura):
-        for coluna in range(0, largura):
-            histograma_azul[0][matriz_pixels[linha][coluna][0]] += 1
-            histograma_verde[0][matriz_pixels[linha][coluna][1]] += 1
-            histograma_vermelho[0][matriz_pixels[linha][coluna][2]] += 1
-    grafico.plot(histograma_azul[0], 'b')
-    grafico.plot(histograma_verde[0], 'g')
-    grafico.plot(histograma_vermelho[0], 'r')
-    grafico.xlim([0,VALOR_CANAL])
-    grafico.show()
+    histograma = np.zeros((CANAIS, VALOR_CANAL))
+    for cor in range(0, CANAIS):
+        for linha in range(0, altura):
+            for coluna in range(0, largura):
+                histograma[cor][matriz_pixels[linha][coluna][cor]] += 1
+    return np.matrix(histograma)
+
+def grafico_matriz_histograma(matriz_histograma):
+    indice = np.arange(matriz_histograma[0].shape[1])
+    cores = ['b','g','r', 'c', 'm', 'y', 'k', 'w']
+    for cor in range(0, CANAIS):
+        grafico.xlabel('Valor do pixel no canal', fontsize=10)
+        grafico.ylabel('Frequência', fontsize=10)
+        grafico.title('Histograma da imagem')
+        grafico.bar(indice, np.array(matriz_histograma[cor])[0], color=cores[cor], alpha=1)
+        grafico.show()
+
+#grafico_matriz_histograma(histograma(imagem))
 
 ##Calcular histograma com biblioteca openCV
 #histograma_azul = biblimagem.calcHist([imagem], [0], None, [256], [0,256])
@@ -48,6 +53,7 @@ def histograma(matriz_pixels):
 
 def brilho(matriz_pixels, valor):
     # TODO: incluir alteração de brilho da biblioteca openCV
+    # TODO: criar variavel 'limite' para rearranjar código
     nova_matriz_pixels = np.copy(matriz_pixels)
     altura, largura = nova_matriz_pixels.shape[0:2]
     if valor >= 0:
@@ -99,10 +105,15 @@ def filtro_mediana(matriz_pixels):
     biblimagem.waitKey()
     grafico.show()
 
-imagem = biblimagem.imread("imgs/ruido.jpg", biblimagem.IMREAD_COLOR)
-filtro_mediana(imagem)
+#filtro_mediana(imagem)
 
 #mediana = biblimagem.medianBlur(imagem,3)
 #biblimagem.imshow('Teste', mediana)
 #biblimagem.waitKey()
 #grafico.show()
+
+def equalizacao(matriz_pixels):
+    altura, largura = matriz_pixels.shape[0:2]
+    print(type(altura), type(largura))
+    numero_pixels_nivel = (altura * largura) / VALOR_CANAL
+    print(numero_pixels_nivel, type(numero_pixels_nivel))
