@@ -51,6 +51,7 @@ def filtro_brilho(matriz_pixels, valor):
                     nova_matriz_pixels[linha][coluna][cor] = 0
                 else:
                     nova_matriz_pixels[linha][coluna][cor] += valor
+    biblimagem.imwrite('estacao_brilho.png', nova_matriz_pixels)
     return nova_matriz_pixels
 
 def filtro_mediana(matriz_pixels):
@@ -72,6 +73,7 @@ def filtro_mediana(matriz_pixels):
             nova_matriz_pixels[linha][coluna][0] = copiar(vizinhos_canais[0][3])
             nova_matriz_pixels[linha][coluna][1] = copiar(vizinhos_canais[1][3])
             nova_matriz_pixels[linha][coluna][2] = copiar(vizinhos_canais[2][3])
+    biblimagem.imwrite('ruido_mediana.png', nova_matriz_pixels.astype('uint8'))
     return nova_matriz_pixels.astype('uint8')
 
 def frequencia_acumulada(histograma):
@@ -93,6 +95,7 @@ def filtro_equalizacao(matriz_pixels):
         for coluna in range(0, largura):
             for cor in range(0, CANAIS):
                 nova_matriz_pixels[linha][coluna][cor] = max(0, round(np.array(distribuicao_cumulativa[cor])[0][nova_matriz_pixels[linha][coluna][cor]] / numero_ideal_nivel)-1)
+    biblimagem.imwrite('estacao_equalizacao.png', nova_matriz_pixels.astype('uint8'))
     return nova_matriz_pixels.astype('uint8')
 
 def grafico_histograma(histograma):
