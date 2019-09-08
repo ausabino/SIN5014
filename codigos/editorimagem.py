@@ -10,7 +10,8 @@
 #         AUTOR: Alan U. Sabino <alan.sabino@usp.br>
 #        VERSÃO: 1.1
 #       CRIAÇÃO: 04/09/2019
-#       REVISÃO: 06/09/2019 Alan U. Sabino <alan.sabino@usp.br> (2)
+#       REVISÃO: 08/09/2019 Alan U. Sabino <alan.sabino@usp.br> (3)
+#                06/09/2019 Alan U. Sabino <alan.sabino@usp.br> (2)
 #                05/09/2019 Alan U. Sabino <alan.sabino@usp.br> (1)
 ################################################################################
 
@@ -32,12 +33,12 @@ VALOR_CANAL=256
 
 def histograma(matriz_pixels):
     altura, largura = matriz_pixels.shape[0:2]
-    histograma = np.zeros((CANAIS, VALOR_CANAL))
+    histograma = np.zeros((CANAIS, VALOR_CANAL), dtype = np.int)
     for cor in range(0, CANAIS):
         for linha in range(0, altura):
             for coluna in range(0, largura):
                 histograma[cor][matriz_pixels[linha][coluna][cor]] += 1
-    return np.matrix(histograma)
+    return histograma
 
 def filtro_brilho(matriz_pixels, valor):
     nova_matriz_pixels = np.copy(matriz_pixels)
@@ -45,13 +46,14 @@ def filtro_brilho(matriz_pixels, valor):
     for linha in range(0, altura):
         for coluna in range(0, largura):
             for cor in range(0,CANAIS):
-                if (nova_matriz_pixels[linha][coluna][cor] + valor) >= 255:
+                valor_pixel = nova_matriz_pixels[linha][coluna][cor] + valor
+                if valor_pixel >= 255:
                     nova_matriz_pixels[linha][coluna][cor] = 255
-                elif  (nova_matriz_pixels[linha][coluna][cor] + valor) <= 0:
+                elif valor_pixel <= 0:
                     nova_matriz_pixels[linha][coluna][cor] = 0
                 else:
-                    nova_matriz_pixels[linha][coluna][cor] += valor
-    biblimagem.imwrite('estacao_brilho.png', nova_matriz_pixels)
+                    nova_matriz_pixels[linha][coluna][cor] = valor_pixel
+    #biblimagem.imwrite('estacao_brilho.png', nova_matriz_pixels)
     return nova_matriz_pixels
 
 def filtro_mediana(matriz_pixels):
@@ -73,17 +75,17 @@ def filtro_mediana(matriz_pixels):
             nova_matriz_pixels[linha][coluna][0] = copiar(vizinhos_canais[0][3])
             nova_matriz_pixels[linha][coluna][1] = copiar(vizinhos_canais[1][3])
             nova_matriz_pixels[linha][coluna][2] = copiar(vizinhos_canais[2][3])
-    biblimagem.imwrite('ruido_mediana.png', nova_matriz_pixels.astype('uint8'))
+    #biblimagem.imwrite('ruido_mediana.png', nova_matriz_pixels.astype('uint8'))
     return nova_matriz_pixels.astype('uint8')
 
 def frequencia_acumulada(histograma):
     canais, valor_canal = histograma.shape[0:2]
-    histograma_acumulado = np.zeros((canais, valor_canal))
+    histograma_acumulado = np.zeros((canais, valor_canal), dtype = np.int)
     for cor in range(0, canais):
-        histograma_acumulado[cor][0] = copiar(np.array(histograma[cor])[0][0])
+        histograma_acumulado[cor][0] = copiar(histograma[cor][0])
         for valor_pixel in range(1, valor_canal):
-            histograma_acumulado[cor][valor_pixel] =  histograma_acumulado[cor][valor_pixel-1] + np.array(histograma[cor])[0][valor_pixel]
-    return np.matrix(histograma_acumulado)
+            histograma_acumulado[cor][valor_pixel] =  histograma_acumulado[cor][valor_pixel-1] + histograma[cor][valor_pixel]
+    return histograma_acumulado
 
 def filtro_equalizacao(matriz_pixels):
     nova_matriz_pixels = np.copy(matriz_pixels)
@@ -94,19 +96,19 @@ def filtro_equalizacao(matriz_pixels):
     for linha in range(0, altura):
         for coluna in range(0, largura):
             for cor in range(0, CANAIS):
-                nova_matriz_pixels[linha][coluna][cor] = max(0, round(np.array(distribuicao_cumulativa[cor])[0][nova_matriz_pixels[linha][coluna][cor]] / numero_ideal_nivel)-1)
-    biblimagem.imwrite('estacao_equalizacao.png', nova_matriz_pixels.astype('uint8'))
-    return nova_matriz_pixels.astype('uint8')
+                nova_matriz_pixels[linha][coluna][cor] = max(0, int(round(distribuicao_cumulativa[cor][nova_matriz_pixels[linha][coluna][cor]] / numero_ideal_nivel))-1)
+    #biblimagem.imwrite('estacao_equalizacao.png', nova_matriz_pixels.astype('uint8'))
+    return nova_matriz_pixels
 
 def grafico_histograma(histograma):
-    indice = np.arange(histograma[0].shape[1])
+    indice = np.arange(histograma[0].shape[0])
     cores = ['b','g','r']
     for cor in range(0, CANAIS):
         grafico.figure(randrange(1000))
         grafico.xlabel('Valor do pixel no canal', fontsize=10)
         grafico.ylabel('Frequência', fontsize=10)
         grafico.title('Histograma da imagem')
-        grafico.bar(indice, np.array(histograma[cor])[0], color=cores[cor], alpha=1)
+        grafico.bar(indice, histograma[cor], color=cores[cor], alpha=1)
         grafico.show(block=False)
 
 def selecionar_imagem():
