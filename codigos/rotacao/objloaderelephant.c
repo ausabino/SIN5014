@@ -97,7 +97,6 @@ void display(void)
 }
 
 int main(int argc,char **argv)
-
 {
   printf("Digite X, Y ou Z de acordo com o eixo que deseja ver o objeto rotacionar: ");
   scanf("%c", &eixo);
