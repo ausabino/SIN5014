@@ -1,0 +1,27 @@
+{ This is an automatically generated lazarus resource file }
+
+LazarusResources.Add('TJPEGExampleForm','FORMDATA',[
+  'TPF0'#16'TJPEGExampleForm'#15'JPEGExampleForm'#4'Left'#3'#'#1#6'Height'#3'X'
+  +#2#3'Top'#2'y'#5'Width'#3'X'#2#18'HorzScrollBar.Page'#3#168#1#18'VertScrollB'
+  +'ar.Page'#3#159#1#7'Caption'#6#28'Example for JPEG for Lazarus'#12'ClientHei'
+  +'ght'#3'X'#2#11'ClientWidth'#3'X'#2#8'OnCreate'#7#10'FormCreate'#10'LCLVersi'
+  +'on'#6#7'1.8.2.0'#0#9'TGroupBox'#13'ImageGroupBox'#4'Left'#2#0#6'Height'#3#8
+  +#2#3'Top'#2#0#5'Width'#3'X'#2#5'Align'#7#5'alTop'#7'Anchors'#11#5'akTop'#6'a'
+  +'kLeft'#8'akBottom'#0#7'Caption'#6#3'...'#12'ClientHeight'#3#247#1#11'Client'
+  +'Width'#3'V'#2#8'TabOrder'#2#0#0#6'TImage'#6'Image1'#4'Left'#2#0#6'Height'#3
+  +#247#1#3'Top'#2#0#5'Width'#3'V'#2#5'Align'#7#8'alClient'#12'Proportional'#9#0
+  +#0#0#7'TButton'#7'Button1'#4'Left'#2#8#6'Height'#2#26#3'Top'#3#24#2#5'Width'
+  +#2'K'#7'Caption'#6#8'Plot_Imp'#7'OnClick'#7#12'Button1Click'#8'TabOrder'#2#1
+  +#0#0#7'TButton'#4'save'#4'Left'#2#8#6'Height'#2#26#3'Top'#3'8'#2#5'Width'#2
+  +'E'#7'Caption'#6#4'Save'#7'OnClick'#7#9'saveClick'#8'TabOrder'#2#2#0#0#7'TBu'
+  +'tton'#7'Button2'#4'Left'#2'X'#6'Height'#2#23#3'Top'#3#24#2#5'Width'#2'J'#7
+  +'Caption'#6#8'Plot_Exp'#7'OnClick'#7#12'Button2Click'#8'TabOrder'#2#3#0#0#7
+  +'TButton'#5'save1'#4'Left'#2'X'#6'Height'#2#26#3'Top'#3'8'#2#5'Width'#2'E'#7
+  +'Caption'#6#4'Exit'#7'OnClick'#7#9'saveClick'#8'TabOrder'#2#4#0#0#18'TOpenPi'
+  +'ctureDialog'#18'OpenPictureDialog1'#4'left'#2'u'#3'top'#2'p'#0#0#18'TSavePi'
+  +'ctureDialog'#18'SavePictureDialog1'#6'Filter'#6#255'Graphic (*.jpg;*.ico;*.'
+  +'ppm;*.pgm;*.pbm;*.png;*.xpm;*.bmp)|*.jpg;*.ico;*.ppm;*.pgm;*.pbm;*.png;*.xp'
+  +'m;*.bmp|Joint Picture Expert Group (*.jpg)|*.jpg|Icon (*.ico)|*.ico|Portabl'
+  +'e PixMap (*.ppm)|*.ppm|Portable GrayMap (*.pgm)|*.pgm|Portable BitMap (*.pb'
+  +'m)|*.pb'#4'left'#3#146#0#3'top'#2'p'#0#0#0
+]);

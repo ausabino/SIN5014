@@ -1,0 +1,78 @@
+object JPEGExampleForm: TJPEGExampleForm
+  Left = 291
+  Height = 600
+  Top = 121
+  Width = 600
+  HorzScrollBar.Page = 424
+  VertScrollBar.Page = 415
+  Caption = 'Example for JPEG for Lazarus'
+  ClientHeight = 600
+  ClientWidth = 600
+  OnCreate = FormCreate
+  LCLVersion = '1.8.2.0'
+  object ImageGroupBox: TGroupBox
+    Left = 0
+    Height = 520
+    Top = 0
+    Width = 600
+    Align = alTop
+    Anchors = [akTop, akLeft, akBottom]
+    Caption = '...'
+    ClientHeight = 503
+    ClientWidth = 598
+    TabOrder = 0
+    object Image1: TImage
+      Left = 0
+      Height = 503
+      Top = 0
+      Width = 598
+      Align = alClient
+      Proportional = True
+    end
+  end
+  object Button1: TButton
+    Left = 8
+    Height = 26
+    Top = 536
+    Width = 75
+    Caption = 'Plot_Imp'
+    OnClick = Button1Click
+    TabOrder = 1
+  end
+  object save: TButton
+    Left = 8
+    Height = 26
+    Top = 568
+    Width = 69
+    Caption = 'Save'
+    OnClick = saveClick
+    TabOrder = 2
+  end
+  object Button2: TButton
+    Left = 88
+    Height = 23
+    Top = 536
+    Width = 74
+    Caption = 'Plot_Exp'
+    OnClick = Button2Click
+    TabOrder = 3
+  end
+  object save1: TButton
+    Left = 88
+    Height = 26
+    Top = 568
+    Width = 69
+    Caption = 'Exit'
+    OnClick = saveClick
+    TabOrder = 4
+  end
+  object OpenPictureDialog1: TOpenPictureDialog
+    left = 117
+    top = 112
+  end
+  object SavePictureDialog1: TSavePictureDialog
+    Filter = 'Graphic (*.jpg;*.ico;*.ppm;*.pgm;*.pbm;*.png;*.xpm;*.bmp)|*.jpg;*.ico;*.ppm;*.pgm;*.pbm;*.png;*.xpm;*.bmp|Joint Picture Expert Group (*.jpg)|*.jpg|Icon (*.ico)|*.ico|Portable PixMap (*.ppm)|*.ppm|Portable GrayMap (*.pgm)|*.pgm|Portable BitMap (*.pbm)|*.pb'
+    left = 146
+    top = 112
+  end
+end
