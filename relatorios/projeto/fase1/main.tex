@@ -1,0 +1,252 @@
+\documentclass{beamer}
+\usepackage[portuguese]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{hyperref}
+\usepackage{natbib}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage{listings}
+
+\usetheme{Ilmenau}
+\usecolortheme{rose}
+
+\beamertemplatenavigationsymbolsempty
+
+% Parametrizando o estilo da linguagem usando pacote Listings
+\lstset{
+	basicstyle=\small\ttfamily,
+	extendedchars=true,
+	showspaces=false,
+	showstringspaces=false,
+	numbers=left,
+	frame=tb,
+	numberstyle=\tiny,
+	breaklines=true,
+	breakautoindent=true,
+	captionpos=b,
+	xleftmargin=0pt,
+	tabsize=4
+}
+
+\title{Otimização da avaliação de confluência em placas de cultura a partir
+ de imagens de microscópio de contraste de fase}
+
+\author[Alan Sabino]{Alan Utsuni Sabino\\ {\tiny alan.sabino@usp.br}}
+
+\institute[]
+{
+	\inst{}
+	SIN5014 - Fundamentos de Processamento Gráfico \\
+  % Instituto do Câncer do Estado de São Paulo\\
+  % Faculdade de Medicina\\
+  Universidade de São Paulo
+}
+
+\date{\today}
+
+\setbeamertemplate{headline}
+{%
+  \begin{beamercolorbox}{section in head/foot}
+    \insertsectionnavigationhorizontal{\textwidth}{}{}
+  \end{beamercolorbox}%
+}
+
+\defbeamertemplate*{footline}{myminiframes theme}
+{%
+  \begin{beamercolorbox}[colsep=1.5pt]{upper separation line foot}
+  \end{beamercolorbox}
+  \begin{beamercolorbox}[ht=2.5ex,dp=1.125ex,%
+    leftskip=.3cm,rightskip=.3cm plus1fil]{author in head/foot}%
+    \leavevmode{\usebeamerfont{author in head/foot}\insertshortauthor}%
+    \hfill%
+    {\usebeamerfont{institute in head/foot}\usebeamercolor[fg]{institute in head/foot}\insertshortinstitute}%
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[ht=2.5ex,dp=1.125ex,%
+    leftskip=.3cm,rightskip=.3cm plus1fil]{title in head/foot}%
+    {\usebeamerfont{title in head/foot}\insertshorttitle\hfill \insertframenumber/\inserttotalframenumber}%<-here
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[colsep=1.5pt]{lower separation line foot}
+  \end{beamercolorbox}
+}
+
+\makeatother
+
+% ----------------------------------------------------------------------------------------
+%	DOCUMENTO
+% ----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\label{Titulo}
+{
+  \begin{frame}[plain,noframenumbering]
+    \titlepage
+  \end{frame}
+}
+
+%\begin{frame}[allowframebreaks]{Tópicos}
+%  \tableofcontents
+%\end{frame}
+
+\section{Objetivo}
+
+\subsection{}
+\begin{frame}{Objetivo}
+  Criar algoritmo que consiga reduzir erro de identificação de células como
+  fundo em imagens capturadas com microscópio de contraste de fase em que o
+  tempo de processamento da imagem não seja excessivamente onerado.
+
+  \begin{figure}
+\includegraphics[width=0.22\textwidth]{imgs/micro.jpg}
+\includegraphics[width=0.32\textwidth]{imgs/cell.jpg}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Contexto}
+
+   \begin{columns}
+    \column{0.45\textwidth}
+    \begin{figure}
+      \includegraphics[width=1.1\textwidth]{imgs/cell-cont.png}
+    \end{figure}
+
+    \column{0.55\textwidth}
+    \begin{itemize}
+    \item Confluência: momento em que a linhagem celular cobre toda a placa,
+      formando um tapete de células
+      \vfill
+    \item Comportamento das células é influenciado pela confluência
+      \vfill
+    \item Na prática, medida subjetiva que afeta reprodutibilidade e/ou repetição
+      de ensaio e/ou experimento
+    \item Algoritmos disponíveis podem não ser eficientes em alguns casos
+
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+\section{Estado da arte}
+\begin{frame}{Estado da arte}
+
+    \begin{figure}
+      \includegraphics[width=0.7\textwidth]{imgs/j1.png}
+    \end{figure}
+    \begin{figure}
+\includegraphics[width=0.7\textwidth]{imgs/j2.png}
+    \end{figure}
+
+\end{frame}
+
+\section{Conceitos}
+\subsection{}
+\begin{frame}{Técnicas de processamento de imagem (PI)}
+ \begin{itemize}
+ \item Segmentação
+ \item Remoção de pequenos objetos
+ \item Correção de imagem
+   \end{itemize}
+
+   \vfill
+
+  {\bf Periódico:} Bioinformatics (OXFORD. PRINT) - A1
+\end{frame}
+
+%\subsection{Resultados preliminares}
+%\begin{frame}{Modelo para  melanoma}
+%  \begin{columns}
+%    \column{0.45\textwidth}
+%    \begin{figure}
+%      \includegraphics[width=1.22\textwidth]{imgs/gradeModelo.eps}
+%    \end{figure}
+%
+%    \column{0.55\textwidth}
+%    \begin{itemize}
+%    \item Dinâmica do padrão espacial. A população de células
+%      tumorais cresce até prevalecer todo o domínio.
+%      \vfill
+%    \item Borda preenchida com células normais. Diâmetros de
+%      exclusão se mostram determinantes para a prevalência do tipo
+%      celular no estado estacionário.
+%      \vfill
+%    \item Aleatoriedade intrínseca. Na ausência de um fator que
+%      diferencie os tipos celulares será a estocasticidade do
+%      sistema que indicará qual tipo celular irá prevalecer.
+%    \end{itemize}
+%  \end{columns}
+%\end{frame}
+
+%\begin{frame}{Modelo para  melanoma} % Segundo
+%  \begin{columns}
+%    \column{0.45\textwidth}
+%    \begin{figure}
+%      \includegraphics[width=0.25\textwidth]{imgs/0_021_heat1.eps}
+%      \includegraphics[width=0.25\textwidth]{imgs/0_021_heat64.eps}
+%      \includegraphics[width=0.25\textwidth]{imgs/0_021_heat74.eps}
+%    \end{figure}
+%    \vfill
+%    \begin{figure}
+%      \includegraphics[width=0.25\textwidth]{imgs/2_021_heat1.eps}
+%      \includegraphics[width=0.25\textwidth]{imgs/2_021_heat64.eps}
+%      \includegraphics[width=0.25\textwidth]{imgs/2_021_heat74.eps}
+%    \end{figure}
+%    \vfill
+%    \begin{figure}
+%      \includegraphics[width=0.25\textwidth]{imgs/01_010_heat1.eps}
+%      \includegraphics[width=0.25\textwidth]{imgs/01_010_heat64.eps}
+%      \includegraphics[width=0.25\textwidth]{imgs/01_010_heat93.eps}
+%      \includegraphics[width=0.25\textwidth]{imgs/02_010_heat1.eps}
+%      \includegraphics[width=0.25\textwidth]{imgs/02_010_heat64.eps}
+%      \includegraphics[width=0.25\textwidth]{imgs/02_010_heat93.eps}
+%    \end{figure}
+%
+%    \column{0.55\textwidth}
+%    \begin{itemize}
+%    \item Dinâmica do padrão espacial. A população de células
+%      tumorais cresce até prevalecer todo o domínio.
+%      \vfill
+%    \item Borda preenchida com células normais. Diâmetros de
+%      exclusão se mostram determinantes para a prevalência do tipo
+%      celular no estado estacionário.
+%      \vfill
+%    \item Aleatoriedade intrínseca. Na ausência de um fator que
+%      diferencie os tipos celulares será a estocasticidade do
+%      sistema que indicará qual tipo celular irá prevalecer.
+%    \end{itemize}
+%  \end{columns}
+%\end{frame}
+%
+%\begin{frame}[plain,noframenumbering]{Agradecimentos}
+%
+%  \begin{columns}
+%    \column{0.5\textwidth}
+%    {\bf AMPhyBio}\\
+%    Prof. Dr. Alexandre Ramos \\
+%    Dr. Mauro Morais \\
+%    Misaki Yamato \\
+%    Suzy Lima \\
+%    Leonardo Gama \\
+%    André Gomes
+%
+%    \column{0.5\textwidth}
+%    {\bf ICESP}\\
+%    Profa. Dra. Fátima Pasini
+%
+%  \end{columns}
+%
+%  \vfill
+%
+%  \begin{figure}
+%    \includegraphics[scale=0.25]{../imgs/icesp.png} \hfill
+%    \includegraphics[scale=0.25]{../imgs/ffm.jpg} \hfill
+%    \includegraphics[scale=0.5]{../imgs/capes.png}
+%  \end{figure}
+%\end{frame}
+
+\begin{frame}[plain,noframenumbering]
+  \titlepage
+\end{frame}
+
+\end{document}
