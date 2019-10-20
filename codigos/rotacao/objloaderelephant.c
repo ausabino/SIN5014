@@ -16,38 +16,38 @@ char eixo;
 
 void loadObj(char *fname)
 {
-FILE *fp; // cria um ponteiro arquivo
-int read;
-GLfloat x, y, z; //#
-char ch;
-elephant=glGenLists(1);//#
-fp=fopen(fname,"r"); //Abre um arquivo para leitura.
+  FILE *fp; // cria um ponteiro arquivo
+  int read;
+  GLfloat x, y, z; //#
+  char ch;
+  elephant=glGenLists(1);//#
+  fp=fopen(fname,"r"); //Abre um arquivo para leitura.
 
-if(!fp)
+  if(!fp)
     {
-        printf("nao pode abrir o arquivo %s\n", fname);
-	  exit(1);
+      printf("nao pode abrir o arquivo %s\n", fname);
+      exit(1);
     }
-glPointSize(5.0); // Tamanho do diametro do ponto
-glNewList(elephant, GL_COMPILE); // Define a lista de exibição
-{
-glPushMatrix(); // Essas rotinas push e pop podem ser legalmente armazenadas em cache em uma lista de exibição.
-glBegin(GL_POINTS);
-//glDisable(GL_POINT_SMOOTH);
-//glEnable(GL_POINT_SMOOTH);
-while(!(feof(fp)))
- {
-  read=fscanf(fp,"%c %f %f %f",&ch,&x,&y,&z);
-  if(read==4&&ch=='v')
+  glPointSize(5.0); // Tamanho do diametro do ponto
+  glNewList(elephant, GL_COMPILE); // Define a lista de exibição
   {
-   glVertex3f(x,y,z); // recebe as coordenadas e desenha o objeto na janela.
+    glPushMatrix(); // Essas rotinas push e pop podem ser legalmente armazenadas em cache em uma lista de exibição.
+    glBegin(GL_POINTS);
+    //glDisable(GL_POINT_SMOOTH);
+    //glEnable(GL_POINT_SMOOTH);
+    while(!(feof(fp)))
+      {
+        read=fscanf(fp,"%c %f %f %f",&ch,&x,&y,&z);
+        if(read==4&&ch=='v')
+          {
+            glVertex3f(x,y,z); // recebe as coordenadas e desenha o objeto na janela.
+          }
+      }
+    glEnd();
   }
- }
-glEnd();
-}
-glPopMatrix(); // Essas rotinas push e pop podem ser legalmente armazenadas em cache em uma lista de exibição.
-glEndList();
-fclose(fp); // fecha arquivo
+  glPopMatrix(); // Essas rotinas push e pop podem ser legalmente armazenadas em cache em uma lista de exibição.
+  glEndList();
+  fclose(fp); // fecha arquivo
 }
 
 //O codigo do carregador .obj termina aqui
@@ -87,12 +87,12 @@ void drawObject()
 
 void display(void)
 {
-   	glClearColor (0.0,0.0,0.0,1.0); // Define a cor de fundo da janela de visualização como preta
-   	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);//Limpa a janela de visualização com a cor de fundo especificada
-   	glLoadIdentity();//#
-   	drawObject(); // função projetada para definir a exibicao do objeto
-   	glutSwapBuffers(); //trocar os buffers
-    usleep( 100 * 1000);            /* Atualização da imagem em milisegundos Max 10^6 */
+  glClearColor (0.0,0.0,0.0,1.0); // Define a cor de fundo da janela de visualização como preta
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);//Limpa a janela de visualização com a cor de fundo especificada
+  glLoadIdentity();//#
+  drawObject(); // função projetada para definir a exibicao do objeto
+  glutSwapBuffers(); //trocar os buffers
+  usleep( 100 * 1000);            /* Atualização da imagem em milisegundos Max 10^6 */
 
 }
 
